@@ -12,6 +12,8 @@ app.use(morgan('dev'));
 //so its called middlewar because it stands between in the middle of the reuest and the response 
 app.use(express.json());
 
+app.use(express.static(`${__dirname}/public`));
+
 app.use((req, res, next) => {
     console.log('Hello from the middleware ')
     next();
