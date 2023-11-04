@@ -182,29 +182,34 @@ const deleteUser = (req, res) => {
 //http://localhost:5000/api/v1/tours/5/23
 // app.get('/api/v1/tours/:id/:x/:y?', (req, res) => {});
 
+const tourRouter = express.Router();
 
+const userRouter = express.Router();
 
-app
-    .route('/api/v1/tours')
+tourRouter
+    .route('/')
     .get(getAllTours)
     .post(createTour)
 
-app
-    .route('/api/v1/tours/:id')
+tourRouter
+    .route('/:id')
     .get(getTour)
     .patch(updateTour)
     .delete(deleteTour)
 
-app
-    .route('/api/v1/users')
+userRouter
+    .route('/')
     .get(getAllUsers)
     .post(createUser)
 
-app
-    .route('/api/v1/users/:id')
+userRouter
+    .route('/:id')
     .get(getUser)
     .patch(updateUser)
     .delete(deleteUser)
+
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
 const port = 5000;
 
