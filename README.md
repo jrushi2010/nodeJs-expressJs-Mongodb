@@ -1,2 +1,2 @@
 # nodeJs-expressJs-Mongodb
-# npm init
+# npm install
