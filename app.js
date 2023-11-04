@@ -6,7 +6,10 @@ const userRouter = require("./routes/userRoutes");
 
 const app = express();
 
-app.use(morgan('dev'));
+//console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
 
 //middleware - is basically a function that can modify the incoming request data
 //so its called middlewar because it stands between in the middle of the reuest and the response 
