@@ -4,7 +4,9 @@
 
 check once the starting point in the package.json file is same as "start" : "nodemon server.js"
 
-# to start the app type npm start
+to start the app type
+
+# npm start
 
 # install mongo db -> www.mongodb.com
 
@@ -56,6 +58,8 @@ and then hit enter, so just like this we created our first document in our datab
 
 # db.tours.find()
 
+to view all the documents
+
 # show dbs
 
 it will basically show us all the databases that we have in MongoDB.
@@ -67,3 +71,34 @@ it will show our collections that we created before.
 # quit()
 
 to quit from the mongo shell just type quit() and it will then exit it.
+
+# db.tours.insertMany([{},{}])
+
+to insert many documents
+
+Querying(Reading) documents
+
+# db.tours.find({name: "The Forest Hiker"})
+
+# db.tours.find({difficulty: "easy"})
+
+# db.tours.find({price: {$lte: 500}})
+
+lte stands for less than or equal, because that is what we are searching for where the price less than 500.
+
+# db.tours.find({ price: {$lt: 500}, rating: {$gte: 4.8} })
+
+querying for documents where these two conditions are both true.
+
+lte -> less than or equal to
+lt -> less than
+gte -> greater than or equal to
+gt -> greater than
+
+# db.tours.find({ $or: [ { price: {$lt: 500}, rating: {$gte: 4.8} } ] })
+
+we start with the or operator and the or operator accepts an array of conditions. so we want either price filter to be true, or rating.
+
+# db.tours.find({ $or: [ { price: {$lt: 500}, rating: {$gte: 4.8} } ] }, {name: 1})
+
+that means we want only the name in to the output and so thats why we set name to one. all the others are not gonna appear in this case.
