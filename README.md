@@ -102,3 +102,11 @@ we start with the or operator and the or operator accepts an array of conditions
 # db.tours.find({ $or: [ { price: {$lt: 500}, rating: {$gte: 4.8} } ] }, {name: 1})
 
 that means we want only the name in to the output and so thats why we set name to one. all the others are not gonna appear in this case.
+
+# db.tours.updateOne({name: "The Snow Adventurer"}, { $set: {price: 597} })
+
+it will update price in the document which have the same name in the query,
+
+# db.tours.updateMany( { price: {$gt: 500}, rating: {$gte: 4.8} }, {$set: {premium: true} } )
+
+it will update the all documents with premium is true, which has price grater than 500 and rating greater than or equal to 4.8.
