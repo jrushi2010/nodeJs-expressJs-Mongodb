@@ -110,3 +110,11 @@ it will update price in the document which have the same name in the query,
 # db.tours.updateMany( { price: {$gt: 500}, rating: {$gte: 4.8} }, {$set: {premium: true} } )
 
 it will update the all documents with premium is true, which has price grater than 500 and rating greater than or equal to 4.8.
+
+# db.tours.deleteOne()
+
+# db.tours.deleteMany({ rating: {$lt: 4.8} })
+
+# db.tours.deleteMany({})
+
+it will delete all of the documents.
