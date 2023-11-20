@@ -233,3 +233,13 @@ http://localhost:5000/api/v1/tours
 "price": 697,
 "rating":4.8
 }
+
+# Get method
+
+------------------------Reading Documents--------------------------------
+
+for get all -
+http://localhost:5000/api/v1/tours
+
+for get using id -
+http://localhost:5000/api/v1/tours/655b39382f43afbed0f6f2ce
