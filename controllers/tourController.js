@@ -1,8 +1,20 @@
-const fs = require('fs');
+//-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
 
-const tours = JSON.parse(
-    fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
-);
+const Tour = require('../models/tourModel');
+
+
+
+
+//-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
+
+
+//-----------------------------------------------old code based on file system-------------------------------------------------------------------------------
+
+// const fs = require('fs');
+
+// const tours = JSON.parse(
+//     fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
+// );
 
 exports.checkID = (req, res, next, val) => {
 
@@ -104,3 +116,4 @@ exports.deleteTour = (req, res) => {
         data: null
     });
 }
+//-----------------------------------------------old code-------------------------------------------------------------------------------
