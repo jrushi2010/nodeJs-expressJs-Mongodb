@@ -158,3 +158,21 @@ After that go to node js project and open your config.env file and add your Data
 Now click on connect button inside the overview option, select the mongodb compass and then copy the conection string.
 
 Open the mongodb compass and go to new connection and pest the connection string, and type the password and then click on connect.
+
+# Connecting Our Database with the express App
+
+to connect with hosted database we need a connection string, and for this go to mongo db atlas and click on connect button inside the overview option of the specific database, then select the driver option and then select the node js inside the driver and the perticular version and then copy the connection string.
+
+after that go back to the node js app and copy the string inside the config.env file and save it in the variable name.
+
+for local database use like this-
+
+mongodb://localhost:27017/natours
+
+next step that we need to install the mongo db driver so, our application allow access to intract with a mongodb database.
+
+and there are couple of drivers available, but we are going to use mongoose.
+
+# npm i mongoose@5
+
+after installation, go to the server.js file and use the mongoose to connect the application with the database using connect method.
