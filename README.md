@@ -176,3 +176,48 @@ and there are couple of drivers available, but we are going to use mongoose.
 # npm i mongoose@5
 
 after installation, go to the server.js file and use the mongoose to connect the application with the database using connect method.
+
+WHAT IS MONGOOSE? AND WHY USE IT?
+Mongoose is an Object Data Modeling library for MongoDB and Node.js a higher level of abstraction.
+
+Mongoose allows for rapid and simple development of mongoDB database iteractions.
+
+Features: schemas to model data and relationships, easy data validation, simple query API, middleware , etc.
+
+Mongoose schema: where we model our data, by describing the structure of the data, default values and validation.
+
+Mongoose model: a wrapper for the schema, providing an interface to the database for CRUD opertions.
+
+----------------------------Creating a simple Tour Model-----------------
+
+const tourSchema = new mongoose.Schema({
+name: {
+type: String,
+required: [true, 'A tour must have a name'],
+unique: true
+},
+rating: {
+type: Number,
+default: 4.5
+},
+price: {
+type: Number,
+required: [true, 'A tour must have a price']
+}
+});
+
+const Tour = mongoose.model('Tour', tourSchema);
+
+----------------------Creating Documents and Testing the Model-----------
+
+const testTour = new Tour({
+name: 'The Forest Hiker',
+rating: 4.7,
+price: 497
+});
+
+testTour.save().then(doc => {
+console.log(doc);
+}).catch(err => {
+console.log('error : ', err)
+});
