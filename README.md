@@ -221,3 +221,15 @@ console.log(doc);
 }).catch(err => {
 console.log('error : ', err)
 });
+
+# Post Method
+
+-----------------------Create documents using nodejs and Mongodb---------
+
+http://localhost:5000/api/v1/tours
+
+{
+"name": "The Snow Adventure",
+"price": 697,
+"rating":4.8
+}

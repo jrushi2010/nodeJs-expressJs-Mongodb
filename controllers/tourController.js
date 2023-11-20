@@ -1,9 +1,5 @@
 //-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
-
 const Tour = require('../models/tourModel');
-
-
-
 
 //-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
 
@@ -15,6 +11,8 @@ const Tour = require('../models/tourModel');
 // const tours = JSON.parse(
 //     fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 // );
+//-----------------------------------------------old code based on file system-------------------------------------------------------------------------------
+
 
 exports.checkID = (req, res, next, val) => {
 
@@ -77,27 +75,55 @@ exports.getTour = (req, res) => {
 
 }
 
+
+//-----------------------------------------------old code based on file system-------------------------------------------------------------------------------
 //for post
-exports.createTour = (req, res) => {
-    //console.log(req.body);
+// exports.createTour = (req, res) => {
+//     //console.log(req.body);
 
-    const newId = tours[tours.length - 1].id + 1;
-    const newTour = Object.assign({ id: newId }, req.body);
+//     const newId = tours[tours.length - 1].id + 1;
+//     const newTour = Object.assign({ id: newId }, req.body);
 
-    tours.push(newTour);
+//     tours.push(newTour);
 
-    fs.writeFile(
-        `${__dirname}/dev-data/data/tours-simple.json`,
-        JSON.stringify(tours),
-        err => {
-            res.status(201).json({
-                status: "success",
-                data: {
-                    tour: newTour
-                }
-            });
+//     fs.writeFile(
+//         `${__dirname}/dev-data/data/tours-simple.json`,
+//         JSON.stringify(tours),
+//         err => {
+//             res.status(201).json({
+//                 status: "success",
+//                 data: {
+//                     tour: newTour
+//                 }
+//             });
+//         });
+// }
+
+//-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
+exports.createTour = async (req, res) => {
+    try {
+        //console.log(req.body);
+        // const newTour = new Tour({})
+        // newTour.save()
+        const newTour = await Tour.create(req.body);
+        res.status(201).json({
+            status: 'success',
+            data: {
+                tour: newTour
+            }
         });
-}
+
+    } catch (err) {
+        //console.log(err);
+        res.status(400).json({
+            status: 'failed',
+            message: 'Invalid data sent'
+        })
+    }
+};
+
+//-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
+
 
 //for update
 exports.updateTour = (req, res) => {
@@ -116,4 +142,3 @@ exports.deleteTour = (req, res) => {
         data: null
     });
 }
-//-----------------------------------------------old code-------------------------------------------------------------------------------
