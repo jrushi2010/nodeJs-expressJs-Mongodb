@@ -254,3 +254,10 @@ http://localhost:5000/api/v1/tours/655b39382f43afbed0f6f2ce
 {
 "price":500
 }
+
+# Delete method
+
+--------------------------Deleting Documents-----------------------------
+
+for delete method -
+http://localhost:5000/api/v1/tours/655b5d48c4f41bdf00891813

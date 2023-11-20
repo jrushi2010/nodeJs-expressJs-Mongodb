@@ -305,12 +305,38 @@ exports.updateTour = async (req, res) => {
 
 
 
+//-----------------------------------------------old code based on file system-------------------------------------------------------------------------------
 
 
 //for delete
-exports.deleteTour = (req, res) => {
-    res.status(204).json({
-        status: 'success',
-        data: null
-    });
+// exports.deleteTour = (req, res) => {
+//     res.status(204).json({
+//         status: 'success',
+//         data: null
+//     });
+// }
+
+//-----------------------------------------------old code based on file system-------------------------------------------------------------------------------
+
+//-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
+
+//for delete
+exports.deleteTour = async (req, res) => {
+    try {
+
+        await Tour.findByIdAndDelete(req.params.id);
+
+        res.status(204).json({
+            status: 'success',
+            data: null
+        });
+    } catch (err) {
+        res.status(404).json({
+            status: 'failed',
+            message: err
+        });
+    }
+
 }
+
+//-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
