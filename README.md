@@ -243,3 +243,14 @@ http://localhost:5000/api/v1/tours
 
 for get using id -
 http://localhost:5000/api/v1/tours/655b39382f43afbed0f6f2ce
+
+# patch method
+
+-------------------------Updating Documents------------------------------
+
+for update method -
+http://localhost:5000/api/v1/tours/655b39382f43afbed0f6f2ce
+
+{
+"price":500
+}

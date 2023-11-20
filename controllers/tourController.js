@@ -239,15 +239,73 @@ exports.createTour = async (req, res) => {
 
 
 
+
+
+
+
+
+
+//-----------------------------------------------old code based on file system-------------------------------------------------------------------------------
+
+
 //for update
-exports.updateTour = (req, res) => {
-    res.status(200).json({
-        status: 'success',
-        data: {
-            tour: '<Updated tour here...>'
-        }
-    })
+// exports.updateTour = (req, res) => {
+//     res.status(200).json({
+//         status: 'success',
+//         data: {
+//             tour: '<Updated tour here...>'
+//         }
+//     })
+// }
+
+//-----------------------------------------------old code based on file system-------------------------------------------------------------------------------
+
+
+//-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
+
+
+//for update
+exports.updateTour = async (req, res) => {
+    try {
+        const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        })
+        res.status(200).json({
+            status: 'success',
+            data: {
+                tour
+            }
+        });
+    } catch (err) {
+        res.status(404).json({
+            status: 'failed',
+            message: err
+        });
+    }
+
 }
+
+//-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //for delete
 exports.deleteTour = (req, res) => {
