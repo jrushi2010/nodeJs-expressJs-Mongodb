@@ -8,6 +8,8 @@ to start the app type
 
 # npm start
 
+-------------------------------- # mongoDB # ----------------------------
+
 # install mongo db -> www.mongodb.com
 
 then click on products and then you need to click on MongoDB Server
@@ -118,3 +120,41 @@ it will update the all documents with premium is true, which has price grater th
 # db.tours.deleteMany({})
 
 it will delete all of the documents.
+
+--------------------------- Mongo db using compass ---------------------
+
+go to download page in mongodb.com
+
+choose Tools from the download center then select compass
+
+download the stable version, choose your platform and download and install the compass on your pc.
+
+now open up the mongo db compass after that go to New Connection, now in order to create the connection to your local database make sure that you have local mongo server that running in the background.
+
+the default port of the mongo local server is the 27017, and then type the hostname as localhost and then click on connect.
+
+after that you can see all the databases that we locally have on your computer, then you can open database that you want and then you can view all the collections.
+
+Now you can insert or filter the documents using the compass.
+
+-------------------Creating a Hosted Database with atlas-----------------
+
+its free, you have to just create a new account on mongodb atlas
+
+so after login in your atlas, click on new project then type your project name and then click on next and then click on create project.
+
+now the project is created now its time to deploy it on cloud, and for this go to overview tab or click on create a deployment button and then choose your cloud provider and then click on create.
+
+now you have a blank empty database is ready to connect to your own development computer.
+
+-----------------------connecting to Hosted Database---------------------
+
+now click on connect button, but before this step you need to add your current ip address in to the atlas and for this go to Network Access tab inside the SECURITY tab and then add your current ip address.
+
+after that you have to add a new user in to this and for this you have to go in to database access option which is inside the SECURITY TAB, then click on ADD NEW DATABASE USER and then add a username and password and the click on add user.
+
+After that go to node js project and open your config.env file and add your Database_Password in this env file.
+
+Now click on connect button inside the overview option, select the mongodb compass and then copy the conection string.
+
+Open the mongodb compass and go to new connection and pest the connection string, and type the password and then click on connect.
