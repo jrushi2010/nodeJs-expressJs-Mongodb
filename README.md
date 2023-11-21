@@ -289,3 +289,8 @@ http://localhost:5000/api/v1/tours?sort=-price,ratingsAverage
 
 limiting fields-
 http://localhost:5000/api/v1/tours?fields=name,duration
+
+# added pagination
+
+for pagination
+http://localhost:5000/api/v1/tours?page=2&limit=3
