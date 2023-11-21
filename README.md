@@ -272,6 +272,60 @@ node dev-data/data/import-dev-data.js --delete
 
 # making the api better - filtering for getall method
 
+http://localhost:5000/api/v1/tours?duration=5&difficulty=easy
+
+so we want to allow the user to filter the data, so that instead of getting all the data, he only gets the data that matches the filter using query string.
+
+console.log(req.query);
+req.query should give us an object nicely formatted with the data from the query string, so we will get the output as
+
+{ duration: '5', difficulty: 'easy' }
+
+in mongoose there are actually two ways of wrting database queries.
+
+so with the filter object we will do it like this,
+
+const tours = await Tour.find({
+duration: 5,
+difficulty: 'easy'
+});
+
+in another way ---
+
+const tours = await Tour.find()
+.where('duration')
+.equals(5).
+.where('difficulty')
+.equals('easy')
+
+so our basic filter is now actually working, now the problem with this implementation is that its actually way too simple, and thats because later on we will have other query parameters. like for example sort, for sorting functionality, or page for pagination. and for this we need to make sure we are not querying for these in our databases.
+
+for example if we added here page =2 then we would of course not get any result,
+
+http://localhost:5000/api/v1/tours?difficulty=easy&page=2
+
+because there is no document in this collection, where page is set to two, so we only want to use this page parameter here or this field page to implement pagination and not to actually query in the database.
+
+and so what we have to do is to basically exclude these special field names from our query string before we actually do the filtering.
+
+so what we will do is first we will create a shallow copy of the
+req.query object.
+
+        const queryObj = { ...req.query }
+
+        here we need really a hard copy, so we cant just like req.query because then if you would delete something from this object we would also delete it from the req.query object and thats because in javascript when we set a varibale to another object, then that new variable will basically just be a reference of that original object.
+
+        and thats why we first use destructring ...req.query and then we can simply create a new object out of that.
+
+        just like this {...req.query} , these tree dots will basically take all the fields out of the object, and here with the curly brases we simply create a new object.
+
+        now lets create an array of all the fields that we want to exclude
+        const exccludedField = ['page', 'sort', 'limit', 'fields'];
+
+        next what we need to do is to basically removes all of these fields from our query object. and in order to do that we will loop over these fields.
+
+        exccludedField.forEach(el => delete queryObj[el])
+
 filtering for get all method
 http://localhost:5000/api/v1/tours?difficulty=easy&page=2&sort=1&limit=10
 
