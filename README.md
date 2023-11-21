@@ -331,6 +331,25 @@ http://localhost:5000/api/v1/tours?difficulty=easy&page=2&sort=1&limit=10
 
 # Advanced filtering for getall method
 
+right now user can only filter the documents by setting one key equal to a value, but now we actually also want to implement the greater than, the greater or equal than, the less than and the less or equal than operators.
+
+    { duration: { $gte: 5 }, difficulty: 'easy' }
+
+    http://localhost:5000/api/v1/tours?duration[gte]=5&difficulty=difficult
+
+    console.log(req.query);
+    if we use above path in postman then we will get output like this -
+    { duration: { gte: '5' }, difficulty: 'easy' }
+
+    so what we see here is that the query object, looks almost identical to the filter object, that we wrote manually, the only difference is that in this one we have the MongoDB operator sign '$' here like this.
+
+     let queryStr = JSON.stringify(queryObj);
+     so first i am going to convert the object into a string.
+
+     now we want to replace the string with $
+     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+
+
 filtering for get all method using gte,gt,lte,lt
 http://localhost:5000/api/v1/tours?duration[gte]=5&difficulty=difficult&price[lt]=1500
 
