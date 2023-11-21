@@ -284,3 +284,8 @@ http://localhost:5000/api/v1/tours?duration[gte]=5&difficulty=difficult&price[lt
 
 sorting for price and ratingsAverage
 http://localhost:5000/api/v1/tours?sort=-price,ratingsAverage
+
+# limiting the fields
+
+limiting fields-
+http://localhost:5000/api/v1/tours?fields=name,duration
