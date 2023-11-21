@@ -261,3 +261,11 @@ http://localhost:5000/api/v1/tours/655b39382f43afbed0f6f2ce
 
 for delete method -
 http://localhost:5000/api/v1/tours/655b5d48c4f41bdf00891813
+
+# importing Development data from file system
+
+for import
+node dev-data/data/import-dev-data.js --import
+
+for delete
+node dev-data/data/import-dev-data.js --delete

@@ -1,1 +1,71 @@
-[{"id":1,"name":"The Forest Hiker","duration":5,"maxGroupSize":25,"difficulty":"easy","ratingAverage":4.7,"rantingQuantity":37,"price":391,"summary":"Breathtaking hike through the Canadian banff National Park","description":"....."},{"id":2,"name":"The Forest Hiker","duration":5,"maxGroupSize":25,"difficulty":"easy","ratingAverage":4.7,"rantingQuantity":37,"price":391,"summary":"Breathtaking hike through the Canadian banff National Park","description":"....."},{"id":3,"name":"Test Tour","duration":10,"difficulty":"easy"},{"id":4,"name":"Test Tour","duration":10,"difficulty":"easy"}]
+[
+    {
+        "id": 1,
+        "name": "The Forest Hiker",
+        "duration": 4,
+        "maxGroupSize": 10,
+        "difficulty": "easy",
+        "ratingsAverage": 4.7,
+        "ratingsQuantity": 37,
+        "price": 391,
+        "summary": "Breathtaking hike through the Canadian banff National Park",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "imageCover": "tour-3-cover.jpg",
+        "images": [
+            "tour-3-1.jpg",
+            "tour-3-2.jpg",
+            "tour-3-3.jpg"
+        ],
+        "startDates": [
+            "2022-01-05,10:00",
+            "2022-02-12,10:00",
+            "2023-01-06,10:00"
+        ]
+    },
+    {
+        "id": 1,
+        "name": "Goa",
+        "duration": 4,
+        "maxGroupSize": 10,
+        "difficulty": "easy",
+        "ratingsAverage": 4.7,
+        "ratingsQuantity": 37,
+        "price": 391,
+        "summary": "Breathtaking hike through the Canadian banff National Park",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "imageCover": "tour-3-cover.jpg",
+        "images": [
+            "tour-3-1.jpg",
+            "tour-3-2.jpg",
+            "tour-3-3.jpg"
+        ],
+        "startDates": [
+            "2022-01-05,10:00",
+            "2022-02-12,10:00",
+            "2023-01-06,10:00"
+        ]
+    },
+    {
+        "id": 1,
+        "name": "The Snow Adventure",
+        "duration": 4,
+        "maxGroupSize": 10,
+        "difficulty": "easy",
+        "ratingsAverage": 4.7,
+        "ratingsQuantity": 37,
+        "price": 391,
+        "summary": "Breathtaking hike through the Canadian banff National Park",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "imageCover": "tour-3-cover.jpg",
+        "images": [
+            "tour-3-1.jpg",
+            "tour-3-2.jpg",
+            "tour-3-3.jpg"
+        ],
+        "startDates": [
+            "2022-01-05,10:00",
+            "2022-02-12,10:00",
+            "2023-01-06,10:00"
+        ]
+    }
+]
