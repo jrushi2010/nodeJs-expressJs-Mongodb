@@ -273,4 +273,9 @@ node dev-data/data/import-dev-data.js --delete
 # making the api better - filtering for getall method
 
 filtering for get all method
-//http://localhost:5000/api/v1/tours?difficulty=easy&page=2&sort=1&limit=10
+http://localhost:5000/api/v1/tours?difficulty=easy&page=2&sort=1&limit=10
+
+# Advanced filtering for getall method
+
+filtering for get all method using gte,gt,lte,lt
+http://localhost:5000/api/v1/tours?duration[gte]=5&difficulty=difficult&price[lt]=1500

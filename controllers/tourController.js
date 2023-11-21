@@ -97,12 +97,20 @@ exports.getAllTours = async (req, res) => {
         //     .equals('easy');
 
         //build query
+        // 1) filtering
         const queryObj = { ...req.query }
         const exccludedField = ['page', 'sort', 'limit', 'fields'];
         exccludedField.forEach(el => delete queryObj[el])
-        const query = Tour.find(queryObj);
+        // const query = Tour.find(queryObj);
+        // console.log(req.query);
 
-        // console.log(req.query, queryObj);
+        // 2) advance filtering
+        let queryStr = JSON.stringify(queryObj);
+        queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+        console.log(JSON.parse(queryStr));
+        // { duration: { $gte: '5' }, difficulty: 'easy' }
+
+        const query = Tour.find(JSON.parse(queryStr));
 
         //Execute query
         const tours = await query;
