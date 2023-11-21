@@ -279,3 +279,8 @@ http://localhost:5000/api/v1/tours?difficulty=easy&page=2&sort=1&limit=10
 
 filtering for get all method using gte,gt,lte,lt
 http://localhost:5000/api/v1/tours?duration[gte]=5&difficulty=difficult&price[lt]=1500
+
+# added sorting functionality to the getall method
+
+sorting for price and ratingsAverage
+http://localhost:5000/api/v1/tours?sort=-price,ratingsAverage
