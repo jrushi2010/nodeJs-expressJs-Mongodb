@@ -269,3 +269,8 @@ node dev-data/data/import-dev-data.js --import
 
 for delete
 node dev-data/data/import-dev-data.js --delete
+
+# making the api better - filtering for getall method
+
+filtering for get all method
+//http://localhost:5000/api/v1/tours?difficulty=easy&page=2&sort=1&limit=10
