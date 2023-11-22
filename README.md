@@ -349,16 +349,36 @@ right now user can only filter the documents by setting one key equal to a value
      now we want to replace the string with $
      queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
 
-
 filtering for get all method using gte,gt,lte,lt
 http://localhost:5000/api/v1/tours?duration[gte]=5&difficulty=difficult&price[lt]=1500
 
 # added sorting functionality to the getall method
 
+sow if we want to sort the tours with the low price
+
+        let query = Tour.find(JSON.parse(queryStr))
+
+        if (req.query.sort) {
+            const sortBy = req.query.sort.split(',').join(' ');
+            // console.log(sortBy)
+            query = query.sort(sortBy);
+        } else {
+            query = query.sort('-createdAt');
+        }
+
 sorting for price and ratingsAverage
 http://localhost:5000/api/v1/tours?sort=-price,ratingsAverage
 
 # limiting the fields
+
+so basically in order to allow clients to choose which fields they want to get back in the response, so for the client its always ideal to receive as little data as possible in order to reduce the bandwidth that is consumed with each request and so its a very nice feature to allow the API user to only request some of the fields.
+
+        if (req.query.fields) {
+            const fields = req.query.fields.split(',').join(' ');
+            query = query.select(fields)
+        } else {
+            query = query.select('-__v');
+        }
 
 limiting fields-
 http://localhost:5000/api/v1/tours?fields=name,duration
