@@ -385,5 +385,26 @@ http://localhost:5000/api/v1/tours?fields=name,duration
 
 # added pagination
 
+so bascially allowing the user to only select a certain page of our results, in case we have a lot of results.
+
+so lets say if we want pgae 2 and there will be a limit field and this limit here basically means the amount of results that we want per page.
+
+        const page = req.query.page * 1 || 1;
+
+        const limit = req.query.limit * 1 || 100;
+
+        const skip = (page - 1) * limit;
+                page 3 starts from 21 so we want to skip 20 results, and if we set limit = 10 then
+                skip = (3 -1) * 10 so we will get skip = 20.
+
+        //page=3&limit-10, 1-10, page 1, 11-20, page 2, 21-30 page 3
+        //query = query.skip(10).limit(10)
+        query = query.skip(skip).limit(limit)
+
+        if (req.query.page) {
+            const numTours = await Tour.countDocuments();
+            if (skip >= numTours) throw new Error('This page does not exist')
+        }
+
 for pagination
 http://localhost:5000/api/v1/tours?page=2&limit=3
