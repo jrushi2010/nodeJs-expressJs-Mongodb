@@ -1,6 +1,8 @@
 //-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
 const Tour = require('../models/tourModel');
 
+const APIFeatures = require('../utils/apiFeatures');
+
 exports.aliasTopTours = (req, res, next) => {
     req.query.limit = '5';
     req.query.sort = '-ratingsAverage,price';
@@ -85,72 +87,19 @@ exports.aliasTopTours = (req, res, next) => {
 
 //-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
 
-//for get all tour
 
+
+//for get all tour
 exports.getAllTours = async (req, res) => {
     try {
 
-        //filtering
-        // const tours = await Tour.find({
-        //     duration: 5,
-        //     difficulty: "easy"
-        // })
-
-        //filtering
-        // const tours = await Tour.find()
-        //     .where('duration')
-        //     .equals(5)
-        //     .where('difficulty')
-        //     .equals('easy');
-
-        //build query
-        // 1) filtering
-        const queryObj = { ...req.query }
-        const exccludedField = ['page', 'sort', 'limit', 'fields'];
-        exccludedField.forEach(el => delete queryObj[el])
-        // const query = Tour.find(queryObj);
-        // console.log(req.query);
-
-        // 2) advance filtering
-        let queryStr = JSON.stringify(queryObj);
-        queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
-        // console.log(JSON.parse(queryStr));
-        // { duration: { $gte: '5' }, difficulty: 'easy' }
-
-        let query = Tour.find(JSON.parse(queryStr));
-
-        // 3) Sorting
-        if (req.query.sort) {
-            const sortBy = req.query.sort.split(',').join(' ');
-            // console.log(sortBy)
-            query = query.sort(sortBy);
-        } else {
-            query = query.sort('-createdAt');
-        }
-
-        // 4) field limiting
-        if (req.query.fields) {
-            const fields = req.query.fields.split(',').join(' ');
-            query = query.select(fields)
-        } else {
-            query = query.select('-__v');
-        }
-
-        // 5) pagination
-        const page = req.query.page * 1 || 1;
-        const limit = req.query.limit * 1 || 100;
-        const skip = (page - 1) * limit;
-
-        //page=3&limit-10, 1-10, page 1, 11-20, page 2, 21-30 page 3
-        query = query.skip(skip).limit(limit)
-
-        if (req.query.page) {
-            const numTours = await Tour.countDocuments();
-            if (skip >= numTours) throw new Error('This page does not exist')
-        }
-
         //Execute query
-        const tours = await query;
+        const features = new APIFeatures(Tour.find(), req.query)
+            .filter()
+            .sort()
+            .limitFields()
+            .pagination();
+        const tours = await features.query;
 
         //send response
         res.status(200).json({
