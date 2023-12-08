@@ -510,3 +510,11 @@ The aggreagtion pipeline really ia a MongoDB feature, but mongoose gives the acc
 
 
     http://localhost:5000/api/v1/tours/tour-stats
+
+# Virtual Properties
+
+now virtual properties are basically fields that we can define on our schema but that will not be persisted. so they will not be saved into the database in order to save us some space there.
+
+and most of the time, of course, we want to really save our data to the database, but virtual properties make a lot of sense for fields that can be derived from one another. for example a conversion from miles to kilometers, it dosent make sense to store these two fields in a database if we can easily convert one to the other.
+
+so lets now define a virtual property that contains the tour duration in weeks. so that a field basically that we can very easily convert from duration that we already have in days
