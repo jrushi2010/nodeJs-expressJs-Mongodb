@@ -408,3 +408,20 @@ so lets say if we want pgae 2 and there will be a limit field and this limit her
 
 for pagination
 http://localhost:5000/api/v1/tours?page=2&limit=3
+
+# Aliasing - top 5 cheap tour
+
+tourRoutes.js -
+
+router
+.route('/top-5-cheap')
+.get(tourController.aliasTopTours, tourController.getAllTours);
+
+tourController.js -
+
+exports.aliasTopTours = (req, res, next) => {
+req.query.limit = '5';
+req.query.sort = '-ratingsAverage,price';
+req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
+next();
+}
