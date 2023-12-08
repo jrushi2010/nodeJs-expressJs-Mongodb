@@ -425,3 +425,88 @@ req.query.sort = '-ratingsAverage,price';
 req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
 next();
 }
+
+# Aggregation Pipeline: Matching and Grouping
+
+The aggreagtion pipeline really ia a MongoDB feature, but mongoose gives the access to it so that we can use it in the Mongoose driver.
+
+    The difference here is that in aggregations, as i already mentioned, we can manupulate the data in a couple of different steps so lets now actually define the steps.
+
+    and for that we pass array of so called stages, so i am gona start with match and match is basically to select or to filter certain documents. its really just like a filter object in MongoDB.
+
+    so each of the stages is an object and then here comes the name of the stages.
+
+         {
+                $match: { ratingsAverage: { $gte: 4.5 } }
+         }
+
+         so we only want to select documents which have a ratings average greater or equal than 4.5.
+
+    and usually this match stage is just a preliminary stage to then prepare for the next stages which come ahead.
+
+        so the next one is now a group stage
+
+        {
+                $group: {
+                    _id: { $toUpper: '$difficulty' },
+                    numTours: { $sum: 1 },
+                    numRatings: { $sum: '$ratingsQuantity' },
+                    avgRating: { $avg: '$ratingsAverage' },
+                    avgPrice: { $avg: '$price' },
+                    minPrice: { $min: '$price' },
+                    maxPrice: { $max: '$price' },
+                }
+        },
+
+        this group here is where the real magic happens because as the name says, it allows us to group documents together, basically using accumulators. and an accumulator is for example, even calculating an average.
+
+        so if we have five tours, each of then has a rating, we can then calculate the average rating using group.
+
+
+    exports.getTourStats = async (req, res) => {
+    try {
+        const stats = await Tour.aggregate([
+            {
+                $match: { ratingsAverage: { $gte: 4.5 } }
+            },
+            {
+                $group: {
+                    _id: { $toUpper: '$difficulty' },
+                    numTours: { $sum: 1 },
+                    numRatings: { $sum: '$ratingsQuantity' },
+                    avgRating: { $avg: '$ratingsAverage' },
+                    avgPrice: { $avg: '$price' },
+                    minPrice: { $min: '$price' },
+                    maxPrice: { $max: '$price' },
+                }
+            },
+            {
+                $sort: { avgPrice: 1 }
+            },
+            // {
+            //     $match: { _id: { $ne: 'EASY' } }
+            // }
+        ]);
+
+        res.status(200).json({
+            status: 'success',
+            data: {
+                stats
+            }
+        });
+    } catch (err) {
+        res.status(404).json({
+            status: 'failed',
+            message: err
+        });
+    }
+
+}
+
+    tourRoutes.js -
+
+    router
+    .route('/tour-stats').get(tourController.getTourStats);
+
+
+    http://localhost:5000/api/v1/tours/tour-stats
