@@ -531,3 +531,8 @@ There are 4 types of middleware in Mongoose: document, query, aggregate and mode
     });
 
 and this is for pre middleware which again run before an actual event and that event in this case is the save event, and so the callback function that we're gonna define here next, so this function will be called before an actual document is saved to the database.
+
+# Query Middleware
+
+as the name says query middleware allows us to run functions before or after a certain query is executed.
+so basically a middlware is gona run before any find query is executed.
