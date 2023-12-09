@@ -518,3 +518,16 @@ now virtual properties are basically fields that we can define on our schema but
 and most of the time, of course, we want to really save our data to the database, but virtual properties make a lot of sense for fields that can be derived from one another. for example a conversion from miles to kilometers, it dosent make sense to store these two fields in a database if we can easily convert one to the other.
 
 so lets now define a virtual property that contains the tour duration in weeks. so that a field basically that we can very easily convert from duration that we already have in days
+
+# Document Middleware
+
+Now just like Express we can use Mongoose middleware to make something happen bwteen two events.
+
+There are 4 types of middleware in Mongoose: document, query, aggregate and model middleware.
+
+    //document middleware: runs before .save() and .create()
+    tourSchema.pre('save', function () {
+        console.log(this)
+    });
+
+and this is for pre middleware which again run before an actual event and that event in this case is the save event, and so the callback function that we're gonna define here next, so this function will be called before an actual document is saved to the database.
