@@ -540,3 +540,19 @@ so basically a middlware is gona run before any find query is executed.
 # Aggregation Middleware
 
 it allows us to add hooks before or after an aggregation happens,
+
+# Data Validation: Built-In Validators
+
+validation is basically checking if the entered values are in the right format for each field in our document schema and also that values have actually been entered for all of the required fields.
+
+now on the other hand we also have sanitization, which is to ensure that the inputed data is basically clean, so that there is no malicious code being injected into our database or into the application itself.
+
+so in that step we remove unwanted characters or even code from the input data. so this is the golden standard step in the backend development to never ever accept input data comming from user as it is, so we always need to sanitize that incoming data.
+
+    maxlength: [40, 'A tour name must have less or equal than 40 characters'],
+        minlength: [10, 'A tour name  must have more or equal then 10 characters']
+
+     enum: {
+            values: ['easy', 'average', 'difficult'],
+            message: 'Difficulty is either: easy, average, difficult'
+        }
