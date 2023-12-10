@@ -536,3 +536,7 @@ and this is for pre middleware which again run before an actual event and that e
 
 as the name says query middleware allows us to run functions before or after a certain query is executed.
 so basically a middlware is gona run before any find query is executed.
+
+# Aggregation Middleware
+
+it allows us to add hooks before or after an aggregation happens,
