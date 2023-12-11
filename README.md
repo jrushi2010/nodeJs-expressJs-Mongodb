@@ -556,3 +556,24 @@ so in that step we remove unwanted characters or even code from the input data. 
             values: ['easy', 'average', 'difficult'],
             message: 'Difficulty is either: easy, average, difficult'
         }
+
+# Handling Unhandlled Routes
+
+so now lets say for example instead of our working api if we write the wrong api address then it should always send the proper json response, so before this it was sending the html response but now we want to send the json response.
+
+right api - http://localhost:5000/api/v1/tours
+
+wring api - http://localhost:5000/api/tours
+
+so now lets fix this and basically create a handler function for all the routes that are not cached by our routers.
+
+we simply want to handle all the routes or all the urls, right here in this one handler, Okey. and so in Express we can use app.all
+
+next up we specify the URL and since here we want to handle all the URL's that were not handled before we can use the star here which is gona stand for everything and then the rest is just a regular middleware function, just like before.
+
+    app.all('*', (req, res, next) => {
+    res.status(404).json({
+        status: 'failed',
+        message: `Can't find ${req.originalUrl} on this server!`
+    });
+    });
