@@ -577,3 +577,21 @@ next up we specify the URL and since here we want to handle all the URL's that w
         message: `Can't find ${req.originalUrl} on this server!`
     });
     });
+
+# Overview of Error Handling
+
+till we didint handled error in a good way or in a central place in our application. what we did was to simply send back an error message as JSON in each route handler in case something went wrong.
+
+There are two types of erros that can occur.
+OPERATIONAL ERRORS
+PROGRAMMING ERRORS
+
+OPERATIONAL ERRORS -
+so operational errors are that we can predict will inevitably happen at some point in the future and so we just need to handle them in advance they have nothing to do with bugs in our code. instead they depend on the user or the system or the network.
+so things like a user accessing an invalid route, inputing invalid data or an application failing to connect to the database.
+
+Programming Errors -
+programming errors are simply bugs that we developers introduce into our code. like for example trying to read properties from an undefined variable, using await without async, accidentally using request.query instead of request.body or any other errors, really that we might make.
+
+so when we're talking error handling with express, we mainly just mean operational errors. because these are the ones that are easy to catch and handle with our express application and express actually comes with error handling our of the box.
+so all we have to do is just write a global express error handling middleware which will then catch errors coming from all over the application. So no matter if its an error coming from a route handler, or a model validator or really someplace else, the goals is that all these errors end up in one central error handling middleware, so that we can send a nice response back to the client letting them know what happened.
