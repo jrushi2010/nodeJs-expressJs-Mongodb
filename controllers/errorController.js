@@ -5,6 +5,14 @@ const handleCastErrorDB = err => {
     return new AppError(message, 400);
 };
 
+const handleDuplicateFieldsDB = err => {
+    // const value = err.errmsg.match(/(["'])(\\?.)*?\1/);
+    // console.log(value);
+    const key = Object.keys(err.keyValue).join('');
+    const message = `The key '${key}' has duplicate value of '${err.keyValue[key]}'`;
+    return new AppError(message, 400);
+};
+
 const sendErrorDev = (err, res) => {
     res.status(err.statusCode).json({
         status: err.status,
@@ -12,7 +20,7 @@ const sendErrorDev = (err, res) => {
         message: err.message,
         stack: err.stack
     });
-}
+};
 
 const sendErrorProd = (err, res) => {
     //Operational, trusted error: send message to client
@@ -46,8 +54,10 @@ module.exports = (err, req, res, next) => {
 
         let error = { ...err };
 
-        if (error.name === 'CastError') error = handleCastErrorDB(error);
+        //console.log(error.name + "db error");
 
+        if (err.name === 'CastError') error = handleCastErrorDB(error);
+        if (err.code === 11000) error = handleDuplicateFieldsDB(error);
         sendErrorProd(error, res);
     }
 };
