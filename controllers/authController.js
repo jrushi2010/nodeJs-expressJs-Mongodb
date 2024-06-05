@@ -12,14 +12,14 @@ const signToken = id => {
 
 exports.signup = catchAsync(async (req, res, next) => {
 
-    const newUser = await User.create(req.body);
+    // const newUser = await User.create(req.body);
 
-    // const newUser = await User.create({
-    //     name: req.body.name,
-    //     email: req.body.email,
-    //     password: req.body.password,
-    //     passwordConfirm: req.body.passwordConfirm
-    // });
+    const newUser = await User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        passwordConfirm: req.body.passwordConfirm,
+    });
 
     const token = signToken(newUser._id);
 
@@ -92,3 +92,19 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.user = freshUser;
     next();
 });
+
+exports.restrictTo = (...roles) => {
+    return (req, res, next) => {
+        // roles is an array ['admin','lead-guide'] -- role ='user'
+        //so when will we give a user access to a certain route? 
+        //so basically when its user role is  
+        //inside of this roles array that we passed in right? 
+        if (!roles.includes(req.user.role)) {
+            return next(
+                new AppError('You do not have permission to perform this action', 403)
+            );
+        }
+
+        next();
+    };
+};
