@@ -2,6 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
 
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -36,6 +38,12 @@ app.use('/api', limiter);
 //so its called middlewar because it stands between in the middle of the reuest and the response 
 //4) body parser reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
+
+//data sanitization against nosql query injection
+app.use(mongoSanitize());
+
+//data sanitization againt xss
+app.use(xss());
 
 //5) serving static files
 app.use(express.static(`${__dirname}/public`));
