@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
 
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -13,6 +14,14 @@ const app = express();
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
+
+const limiter = rateLimit({
+    max: 100,
+    windowMs: 60 * 60 * 1000,
+    message: 'Two many requests from this IP, please try agin in an hour!'
+});
+
+app.use('/api', limiter);
 
 //middleware - is basically a function that can modify the incoming request data
 //so its called middlewar because it stands between in the middle of the reuest and the response 
