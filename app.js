@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -10,11 +11,18 @@ const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
 
+//Global middlewares
+//1) set security HTTP headers
+app.use(helmet())
+
+
 //console.log(process.env.NODE_ENV);
+//2) development logging
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
+//3) limit requests from same API 
 const limiter = rateLimit({
     max: 100,
     windowMs: 60 * 60 * 1000,
@@ -23,10 +31,13 @@ const limiter = rateLimit({
 
 app.use('/api', limiter);
 
+
 //middleware - is basically a function that can modify the incoming request data
 //so its called middlewar because it stands between in the middle of the reuest and the response 
-app.use(express.json());
+//4) body parser reading data from body into req.body
+app.use(express.json({ limit: '10kb' }));
 
+//5) serving static files
 app.use(express.static(`${__dirname}/public`));
 
 // app.use((req, res, next) => {
@@ -34,6 +45,7 @@ app.use(express.static(`${__dirname}/public`));
 //     next();
 // });
 
+// test middleware
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
     // console.log(req.headers);
