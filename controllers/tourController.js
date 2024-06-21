@@ -2,7 +2,7 @@
 const Tour = require('../models/tourModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-
+const factory = require('./handlerFactory');
 
 const APIFeatures = require('../utils/apiFeatures');
 
@@ -324,20 +324,22 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 //-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
 
 //for delete
-exports.deleteTour = catchAsync(async (req, res, next) => {
+exports.deleteTour = factory.deleteOne(Tour);
 
-    const tour = await Tour.findByIdAndDelete(req.params.id);
+// exports.deleteTour = catchAsync(async (req, res, next) => {
+
+//     const tour = await Tour.findByIdAndDelete(req.params.id);
 
 
-    if (!tour) {
-        return next(new AppError('No tour found with that ID', 404))
-    }
+//     if (!tour) {
+//         return next(new AppError('No tour found with that ID', 404))
+//     }
 
-    res.status(204).json({
-        status: 'success',
-        data: null
-    });
-});
+//     res.status(204).json({
+//         status: 'success',
+//         data: null
+//     });
+// });
 
 //-----------------------------------------------new code based on Hosted DB Server-------------------------------------------------------------------------------
 
